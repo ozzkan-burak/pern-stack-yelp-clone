@@ -27,42 +27,92 @@ app.get("/api/v1/restaurants", async (req, res) => {
 });
 
 //get restaurant detail
-app.get("/api/v1/restaurant/:id", (req, res) => {
-  res.status(200).json({
+app.get("/api/v1/restaurant/:id", async (req, res) => {
+
+  try {
+    const result = await db.query("select * from restaurants where id= $1", [req.params.id]);
+
+    console.log(result.rows[0]);
+
+    res.status(200).json({
     status: "success",
     data: {
-      restaurant: "mcdonalds"
+      restaurant: result.rows[0]
     }
   });
+  } catch (err){
+    console.log(err)
+  }
+
+  
+  
 });
 
 // create restaurant
-app.post("/api/v1/restaurants", (req, res) => {
-  res.status(201).json({
-    status: "success",
-    data: {
-      restaurant: "mcdonalds"
-    }
-  });
+app.post("/api/v1/restaurants", async (req, res) => {
+
+ 
+  console.log(typeof req.body.location);
+
+  try {
+    const result = await db.query(
+      "INSERT INTO restaurants (name, location, price_range) values ($1, $2, $3) returning *", 
+      [req.body.name, req.body.location, req.body.price_range]
+      );
+
+    console.log(result)
+
+    res.status(201).json({
+      status: "success",
+      data: {
+        restaurant: result.rows[0]
+      }
+    });
+
+  } catch(err) {
+    console.log(err)
+  }
 });
 
 // update restaurant
 
-app.put("/api/v1/restaurants/:id", (req, res) => {
-  res.status(204).json({
-    status: "success",
-    data: {
-      restaurant: "mcdonalds"
-    }
-  });
+app.put("/api/v1/restaurants/:id", async (req, res) => {
+
+  try {
+    const result = await db.query(
+      "UPDATE restaurants SET name= $1, location= $2, price_range= $3 where id= $4 returning *",
+      [
+        req.body.name,
+        req.body.location,
+        req.body.price_range,
+        req.params.id
+      ]
+      );
+      res.status(200).json({
+        status: "success",
+        data: {
+          restaurant: result.rows[0]
+        }
+      });
+  } catch (err){
+
+  }
+
 });
 
 // delete restaurant
 
-app.delete("/api/v1/restaurants/:id", (req, res) => {
-  res.status(204).json({
-    status: "success"
-  });
+app.delete("/api/v1/restaurants/:id", async (req, res) => {
+
+  try {
+    const result = await db.query('DELETE from restaurants where id=$1', [req.params.id]);
+
+    res.status(204).json({
+      status: "success"
+    });
+  } catch (err){
+    console.log(err);
+  }
 });
 
 const PORT = process.env.PORT || 3005;

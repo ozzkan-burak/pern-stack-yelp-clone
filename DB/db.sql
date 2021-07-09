@@ -15,6 +15,8 @@
 -- all data             select * from dbname
 
 -- colum feature        select columName from dbnema
+
+-- search specific      select * from tablename where id=id
 CREATE TABLE products (
     id bigserial primary key,
     product_name varchar(20) NOT NULL,
