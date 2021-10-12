@@ -1,5 +1,6 @@
 import React, { useContext, useState } from 'react'
 import RestaurantFinder from '../apis/RestaurantFinder';
+import { RestaurantsContext } from '../context/RestaurantContext';
 
 const INIT_RESTAURANT = {
   name: "",
@@ -11,7 +12,7 @@ const AddRestaurant = () => {
 
   const [restaurant, setRestaurant] = useState(INIT_RESTAURANT);
 
-  //const {addRestaurants} = useContext(RestaurantsContext)
+  const {addRestaurants} = useContext(RestaurantsContext)
 
   const onInputChange = (e) => {
     e.preventDefault();
@@ -19,6 +20,7 @@ const AddRestaurant = () => {
   }
 
   const handleSubmit = async (e) => {
+    //debugger;
     e.preventDefault();
     try {
      const response = await RestaurantFinder.post('/', {
@@ -26,7 +28,7 @@ const AddRestaurant = () => {
         location: restaurant.location,
         price_range: restaurant.priceRange
       });
-      console.log(response);
+      addRestaurants(response.data.data);
     } catch (err) {
 
     }
