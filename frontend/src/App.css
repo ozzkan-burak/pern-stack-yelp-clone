@@ -1,0 +1,7 @@
+.form-row{
+  display: flex;
+}
+.add-restaurant-input{
+  display: flex;
+  align-items: center;
+}
