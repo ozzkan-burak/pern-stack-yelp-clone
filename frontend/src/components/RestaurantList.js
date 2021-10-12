@@ -12,8 +12,7 @@ const RestaurantList = (props) => {
     const fetchData = async () => {
       try {
         const response = await RestaurantFinder.get("/");
-        console.log(response);
-        setRestaurants(response.data.data.restaurants)
+        setRestaurants(response.data.data.restaurant)
       } catch (err) {
         console.error(err);
       }
@@ -36,25 +35,19 @@ const RestaurantList = (props) => {
           </tr>
         </thead>
         <tbody>
-          {restaurants && restaurants.map(restaurant => {
-            return <tr key={restaurant.id}>
-              <td>{restaurant.name}</td>
-              <td>{restaurant.location}</td>
-              <td>{'$'.repeat(restaurant.price_range)}</td>
-              <td>Reviews</td>
-              <td><button className="btn btn-warning">Update</button></td>
-              <td><button className="btn btn-warning">Delete</button></td>
-            </tr>
+          {restaurants && restaurants.map((restaurant, index) => {
+          console.log('MAP',restaurant)
+            return (
+              <tr key={index}>
+                <td>{restaurant.name}</td>
+                <td>{restaurant.location}</td>
+                <td>{'$'.repeat(restaurant.price_range)}</td>
+                <td>Reviews</td>
+                <td><button className="btn btn-warning">Update</button></td>
+                <td><button className="btn btn-warning">Delete</button></td>
+              </tr>
+            )
           })}
-
-          {/* <tr>
-            <td>mcdonalds</td>
-            <td>New York</td>
-            <td>$$</td>
-            <td>Rating</td>
-            <td><button className="btn btn-warning">Update</button></td>
-            <td><button className="btn btn-warning">Delete</button></td>
-          </tr> */}
         </tbody>
       </table>
     </div>
