@@ -6,7 +6,6 @@ import { RestaurantsContext } from '../context/RestaurantContext';
 const RestaurantList = () => {
 
   const { restaurants, setRestaurants } = useContext(RestaurantsContext);
-  console.log('RESTAURANTS',restaurants)
 
   useEffect(() => {
 
@@ -14,11 +13,11 @@ const RestaurantList = () => {
       try {
         const response = await RestaurantFinder.get("/");
         setRestaurants(response.data.data.restaurants)
-        console.log('RESPONSE',response);
+
       } catch (err) {
         console.error(err);
       }
-    }
+    };
 
     
     
@@ -40,22 +39,21 @@ const RestaurantList = () => {
         <tbody>
           {restaurants && restaurants.map((restaurant, index) => {
 
-            // console.log('restaurant',restaurant)
-            // return (
-            //   <tr key={index}>
-            //     <td>{restaurant.name}</td>
-            //     <td>{restaurant.location}</td>
-            //     <td>{'$'.repeat(restaurant.price_range)}</td>
-            //     <td>Reviews</td>
-            //     <td><button className="btn btn-warning">Update</button></td>
-            //     <td><button className="btn btn-warning">Delete</button></td>
-            //   </tr>
-            // )
+            return (
+              <tr key={index}>
+                <td>{restaurant.name}</td>
+                <td>{restaurant.location}</td>
+                <td>{'$'.repeat(restaurant.price_range)}</td>
+                <td>Reviews</td>
+                <td><button className="btn btn-warning">Update</button></td>
+                <td><button className="btn btn-warning">Delete</button></td>
+              </tr>
+            )
           })}
         </tbody>
       </table>
     </div>
   )
-}
+};
 
 export default RestaurantList
