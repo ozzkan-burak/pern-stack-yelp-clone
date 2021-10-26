@@ -18,11 +18,20 @@ const RestaurantList = () => {
         console.error(err);
       }
     };
-
-    
-    
+  
     fetchData();
   }, []);
+
+  const handleDelete = async (id) => {
+    try{
+
+      const response = await RestaurantFinder.delete(`/${id}`);
+      setRestaurants(restaurants.filter(restaurant => restaurant.id !== id));
+    } catch (err) {
+      console.error(err)
+    }
+  }
+
   return (
     <div className="list-group">
       <table className="table table-hover table-dark">
@@ -46,7 +55,7 @@ const RestaurantList = () => {
                 <td>{'$'.repeat(restaurant.price_range)}</td>
                 <td>Reviews</td>
                 <td><button className="btn btn-warning">Update</button></td>
-                <td><button className="btn btn-warning">Delete</button></td>
+                <td><button className="btn btn-warning" onClick={()=> handleDelete(restaurant.id)} >Delete</button></td>
               </tr>
             )
           })}
