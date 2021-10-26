@@ -62,7 +62,7 @@ app.post("/api/v1/restaurants", async (req, res) => {
       [req.body.name, req.body.location, req.body.price_range]
       );
 
-    console.log(result)
+
 
     res.status(201).json({
       status: "success",
