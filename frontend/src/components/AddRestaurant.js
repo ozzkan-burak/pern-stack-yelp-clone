@@ -20,7 +20,6 @@ const AddRestaurant = () => {
   }
 
   const handleSubmit = async (e) => {
-    //debugger;
     e.preventDefault();
     try {
      const response = await RestaurantFinder.post('/', {
