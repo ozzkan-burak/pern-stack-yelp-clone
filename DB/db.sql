@@ -31,4 +31,11 @@ CREATE TABLE restaurants (
     price_range  INT NULL check(price_range >= 1 and price_range <= 5)
 );
 
-INSERT INTO restaurants (name, location, price_range) values('mcdonalds', 'new york', 3);
+CREATE TABLE reviews (
+    id bigserial NOT NULL PRIMARY KEY,
+    name VARCHAR(50) NOT NULL,
+    review TEXT NOT NULL,
+    rating INT NOT NULL check(rating >= 1 and rating <= 5)
+);
+
+INSERT INTO reviews (name, review, rating) values('carl', 'restaurant was awesome', 5);
