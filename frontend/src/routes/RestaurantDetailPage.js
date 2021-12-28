@@ -5,6 +5,7 @@ import RestaurantFinder from '../apis/RestaurantFinder';
 
 //
 import  StarRating from '../components/StarRatings';
+import Reviews from '../components/Reviews';
 
 const RestaurantDetailPage = () => {
 
@@ -29,7 +30,11 @@ const RestaurantDetailPage = () => {
 
   return (
     <div>
-      {selectedRestaurant && <StarRating rating={2.7} />}
+      {selectedRestaurant && (
+        <div className="mt-3">
+          <Reviews />
+        </div>
+      )}
     </div>
   )
 }
