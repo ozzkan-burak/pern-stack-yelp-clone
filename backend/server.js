@@ -30,26 +30,25 @@ app.get("/api/v1/restaurants", async (req, res) => {
 
 //get restaurant detail
 app.get("/api/v1/restaurants/:id", async (req, res) => {
-  console.log('TEST YAZDIR')
 
   try {
-    const result = await db.query("select * from restaurants where id= $1", [req.params.id]);
-
-    console.log(result.rows[0]);
+    const restaurant = await db.query("select * from restaurants where id= $1", [req.params.id]);
+    console.log(restaurant)
+    const reviews = await db.query("select * from reviews where id= $1", [req.params.id]);
+    console.log(reviews);
 
     res.status(200).json({
     status: "success",
     data: {
-      restaurant: result.rows[0]
+      restaurant: restaurant.rows[0],
+      reviews: reviews.rows
     }
   });
   } catch (err){
     console.log(err)
   }
-
-  
-  
 });
+
 
 // create restaurant
 app.post("/api/v1/restaurants", async (req, res) => {
