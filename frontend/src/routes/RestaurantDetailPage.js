@@ -4,8 +4,8 @@ import { RestaurantsContext } from '../context/RestaurantContext';
 import RestaurantFinder from '../apis/RestaurantFinder';
 
 //
-import  StarRating from '../components/StarRatings';
 import Reviews from '../components/Reviews';
+import AddReview from '../components/AddReview';
 
 const RestaurantDetailPage = () => {
 
@@ -13,12 +13,12 @@ const RestaurantDetailPage = () => {
   const { selectedRestaurant, setSelectedRestaurant } = useContext(RestaurantsContext);
 
   useEffect(() => {
-   
+
     const fetchData = async () => {
       try {
-        const response = await RestaurantFinder.get(`/${id}`);
-        setSelectedRestaurant(response.data.data.restaurant);
 
+        const response = await RestaurantFinder.get(`/${id}`);
+        setSelectedRestaurant(response.data.data);
       } catch (error) {
 
         console.log(error);
@@ -28,12 +28,17 @@ const RestaurantDetailPage = () => {
     fetchData();
   }, []);
 
+  console.log(selectedRestaurant);
+
   return (
     <div>
-      {selectedRestaurant && (
-        <div className="mt-3">
-          <Reviews />
-        </div>
+      {selectedRestaurant !== null  && (
+        <>
+          <div className="mt-3">
+            <Reviews reviews={selectedRestaurant.reviews} />
+          </div>
+          <AddReview />
+        </>
       )}
     </div>
   )
