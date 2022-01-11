@@ -4,7 +4,7 @@ const StarRatings = ({rating}) => {
   
   const stars = [];
 
-  for (let i = 1; i < 5; i++) {
+  for (let i = 1; i < 6; i++) {
     if (i <= rating) {
       stars.push(<i className="fas fa-star text-warning" key={i}></i>)
     } else if( i === Math.ceil(rating) && !Number.isInteger(rating)) {

@@ -1,13 +1,12 @@
 import React from 'react'
 import StarRatings from './StarRatings'
 
-const Reviews = (reviews) => {
-  console.log(reviews)
+const Reviews = ({reviews}) => {
   return (
     <div className="row row-cols-3 mb-2">
       {
         reviews.length > 0 ? reviews?.map(review => (
-          <div className="card text-white bg-primary mb-3 mr-4" style={{ maxWidth: "30%" }}>
+          <div key={review.id} className="card text-white bg-primary mb-3 mr-4" style={{ maxWidth: "30%" }}>
             <div className="card-header d-flex justify-content-between">
               <span>{review.name}</span>
               <span>
@@ -20,7 +19,7 @@ const Reviews = (reviews) => {
           </div>
         ))
           :
-          <div class="alert alert-warning" role="alert">
+          <div className="alert alert-warning" role="alert">
             No reviews yet
           </div>
       }
